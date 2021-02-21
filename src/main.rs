@@ -35,14 +35,14 @@ fn main() {
         .expect("Error in reading home_dir");
     data_file.push(".rusty-diary");
     // Create data dir if it doesn't exist
-    fs::create_dir_all(data_file.clone())
+    fs::create_dir_all(&data_file)
         .expect("Error creating the diary data directory");
     data_file.push("data.json");
     let mut file = fs::OpenOptions::new()
         .read(true)
         .write(true)
         .create(true)
-        .open(data_file.clone())
+        .open(&data_file)
         .expect("Error while reading the diary data file");
     let mut contents = String::new();
     file.read_to_string(&mut contents)
