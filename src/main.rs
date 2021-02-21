@@ -4,12 +4,12 @@ use std::fs;
 use std::env;
 use std::process;
 use std::io::Read;
-
+use serde_json;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 struct DiaryEntry {
-    datetime: String,
+    datetime: chrono::NaiveDateTime,
     entry: String,
 }
 
@@ -44,9 +44,8 @@ fn main() {
     }
     let mut entries: Vec<DiaryEntry> = serde_json::from_str(&contents)
         .expect("Error while parsing JSON data.");
-    let now: DateTime<Utc> = Utc::now();
     entries.push(DiaryEntry {
-        datetime: now.to_rfc3339(),
+        datetime: Utc::now().naive_utc(),
         entry
     });
     let output = serde_json::to_string(&entries)
