@@ -2,25 +2,15 @@ use dirs;
 use chrono::prelude::*;
 use std::fs;
 use std::env;
-use std::fmt;
 use std::process;
 use std::io::Read;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 struct DiaryEntry {
     datetime: String,
     entry: String,
-}
-
-impl fmt::Debug for DiaryEntry {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("DiaryEntry")
-         .field("datetime: ", &self.datetime)
-         .field("entry: ", &self.entry)
-         .finish()
-    }
 }
 
 fn main() {
